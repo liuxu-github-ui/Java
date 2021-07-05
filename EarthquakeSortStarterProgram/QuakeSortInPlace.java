@@ -97,4 +97,65 @@ public class QuakeSortInPlace {
         }
         
     }
+    
+    public void onePassBubbleSort(ArrayList<QuakeEntry> quakeData, int numSorted){
+            	for (int i=0; i<quakeData.size()-1-numSorted;i++) {
+    		QuakeEntry q1 = quakeData.get(i);
+    		QuakeEntry q2 = quakeData.get(i+1);
+    		
+    		if (q1.getMagnitude()>q2.getMagnitude()) {
+    			quakeData.set(i, q2);
+    			quakeData.set(i+1,q1);
+    		}
+    	}
+    
+    
+    }
+    
+    public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in) {
+    	for (int i=0; i<in.size();i++) 
+    		onePassBubbleSort(in, i);
+    }
+    
+    public boolean checkInSortedOrder(ArrayList<QuakeEntry> quakes) {
+    	
+    	for (int i=0;i<quakes.size()-1;i++) {
+    		if (quakes.get(i).getMagnitude() > 
+    				quakes.get(i+1).getMagnitude()
+    				) return false;
+    	}
+    	
+    	return true;
+    }
+    
+    public void sortByMagnitudeWithBubbleSortWithCheck(ArrayList<QuakeEntry> in) {
+    	for (int i=0; i<in.size();i++) {
+    		if (checkInSortedOrder(in)) {
+    			System.out.printf("Number of passes: %d\n", i);
+    			break;
+    		}
+    		onePassBubbleSort(in, i);
+    	}
+    }
+    
+     public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in) {
+    	
+        for (int i=0; i< in.size(); i++) {
+        	
+    		if (checkInSortedOrder(in)) {
+    			System.out.printf("Number of passes: %d\n", i);
+    			break;
+    		}
+        	
+            int minIdx = getSmallestMagnitude(in,i);
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmin = in.get(minIdx);
+            in.set(i,qmin);
+            in.set(minIdx,qi);
+        }
+    	
+    	
+    }
+    
+  
 }
